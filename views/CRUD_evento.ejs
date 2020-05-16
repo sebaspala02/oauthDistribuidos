@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="google-signin-client_id" content="748278365838-l8v3r1fm79p74igar5je50iuucm9n01i.apps.googleusercontent.com">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>EVENTOS-Votalo.com</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="vendor/simple-line-icons/css/simple-line-icons.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+
+    <!-- Plugin CSS -->
+    <link rel="stylesheet" href="device-mockups/device-mockups.min.css">
+
+    <!-- Custom styles for this template -->
+    <link href="css/new-age.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+</head>
+
+<body id="page-top">
+    <script>
+        $(document).ready(function() {
+            $.post('http://localhost:3001/listEvents', {}, function(data) {
+                list(data.result.data)
+                console.log(data)
+            })
+        });
+        function eliminaFilas() {
+            //OBTIENE EL NÚMERO DE FILAS DE LA TABLA
+            $("#tableList").children().remove()
+        };
+
+
+        function list(events) {
+            eliminaFilas()
+            $('#tableList').append(`<thead>
+                                <tr>
+                                    <th> NOMBRE </th>
+                                    <th> LUGAR </th>
+                                    <th> ACCION </th>
+                                </tr>
+                            </thead>`)
+            events.forEach(element => {
+                $('#tableList').append(`
+                
+                <tr>class="otra" <td>` + element.name + `</td><td>` + element.place + `</td><td><a href="javascript:set('` + element.name + `','` + element.place + `')">Modificar</a></td></tr>`);
+            });
+        }
+
+        function set(name, place) {
+            $('#nameUpdate').val(name)
+            $('#placeUpdate').val(place)
+        }
+
+        function save() {
+            let name = $('#name').val();
+            let place = $('#place').val();
+            if (name != "" && place != "") {
+                $.post('http://localhost:3001/saveEvent', {
+                    name: name,
+                    place: place
+                }, function(data) {
+                    alert('Evento creado')
+                    limpiar()
+                    $.post('http://localhost:3001/listEvents', {}, function(data) {
+                        list(data.result.data)
+                        console.log(data)
+                    })
+                })
+            } else {
+                alert('Ingrese los datos')
+            }
+        }
+
+        function update() {
+            let name = $('#nameUpdate').val();
+            let place = $('#placeUpdate').val();
+            if (name != "" && place != "") {
+                $.post('http://localhost:3001/updateEvent', {
+                    name: name,
+                    place: place
+                }, function(data) {
+                    alert('Evento modificado')
+                    limpiar()
+                    $.post('http://localhost:3001/listEvents', {}, function(data) {
+                        list(data.result.data);
+                    })
+                })
+            } else {
+                alert('Ingrese los datos')
+            }
+        }
+
+        function deleteEvent() {
+            let name = $('#nameDelete').val();
+            if (name != "") {
+                $.post('http://localhost:3001/deleteEvent', {
+                    name: name
+                }, function(data) {
+                    alert('Evento eliminado')
+                    limpiar()
+                    $.post('http://localhost:3001/listEvents', {}, function(data) {
+                        list(data.result.data);
+                    })
+                })
+            } else {
+                alert('Ingrese el nombre del evento')
+            }
+        }
+
+        function limpiar() {
+            $("#nomEven").val("");
+            $("#lugar").val("");
+            $("#nameUpdate").val("");
+            $("#placeUpdate").val("");
+        }
+    </script>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="#page-top"><b>Votalo.com</b></a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                Menu
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#download">Registrar-Evento</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#download1">Modificar-Evento</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#features">Eliminar-Evento</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#download2">Ver-Eventos</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="masthead">
+        <div class="container h-100">
+            <div class="row h-100">
+                <div class="col-lg-7 my-auto">
+                    <div class="header-content mx-auto">
+                        <h1 class="mb-5">
+                            Bienvenido a Votalo.com, ven y vota por tu comida favorita si ya tiene el codigo de votacion haz click en el botón.
+                        </h1>
+                        <!-- <a href="login.html" class="btn btn-outline btn-xl js-scroll-trigger">VOTAR!</a> -->
+                    </div>
+                </div>
+                <div class="col-lg-5 my-auto">
+                    <div class="device-container">
+                        <!-- celular -->
+                        <div class="device-mockup lumia920 portrait white">
+                            <div class="device">
+                                <div class="screen">
+                                    <!-- Demo image for screen mockup, you can put an image here, some HTML, an animation, video, or anything else! -->
+                                    <img src="img_fine/Diseño sin título.png" class="img-fluid" alt="">
+                                </div>
+                                <div class="button">
+                                    <!-- You can hook the "home button" to some JavaScript events or just remove it -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="download bg-primary text-center" id="download">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 mx-auto">
+                    <h2 class="section-heading" style="color: #d82534;">
+                        Registrar Eventos!
+                    </h2>
+                    <br>
+                    <div class="badges">
+                        <!-- <a class="badge-link" href="loginFacebook.html"><img src="img_fine/btn_fbook.png" alt=""></a>
+                        <a class="badge-link" href="loginGoogle.html"><img src="img_fine/btnGOOGLE.png" alt=""></a> -->
+
+                        <!-- boton basico -->
+                        <!-- <a href="#download" class="btn btn-outline btn-xl js-scroll-trigger">Registarme!</a> -->
+                        <!-- <a class="badge-link" href="#"><img src="img/google-play-badge.svg" alt=""></a> -->
+                        <!-- <a class="badge-link" href="#"><img src="img/app-store-badge.svg" alt=""></a> -->
+                    </div>
+                    <div class="col-md-8 mx-auto text-center">
+                        <table>
+                            <tr>
+                                <td>
+                                    <p style="text-align: left;">Nombre del Evento: </p>
+                                </td>
+                                <td style="padding-left: 50px;">
+                                    <input class="form-control" id="name" type="text" placeholder="Nombre del Evento">
+                                </td>
+                            </tr>
+                            <!-- <tr>
+                                <td>
+                                    <p style="text-align: left;">Tipo del Evento: </p>
+                                </td>
+                                <td style="padding-left: 50px;">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                        </div>
+                                        <select style="border-radius: 6px;" class="custom-select"
+                                            id="inputGroupSelect01">
+                                            <option selected>Choose...</option>
+                                            <option value="1">One</option>
+                                            <option value="2">Two</option>
+                                            <option value="3">Three</option>
+                                        </select>
+                                    </div>
+                                </td>
+                            </tr> -->
+                            <tr>
+                                <td>
+                                    <p style="text-align: left;">Lugar del Evento: </p>
+                                </td>
+                                <td style="padding-left: 50px;">
+                                    <input class="form-control" id="place" type="text" placeholder="Precio del Producto">
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <br>
+                    <a href="javascript:save()" class="btn btn-outline1 btn-xl js-scroll-trigger" style="font-size: large;">Registrar !</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="download bg-primary2 text-center" id="download1">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 mx-auto">
+                    <h2 class="section-heading" style="color: chocolate;">
+                        Modificar Evento!
+                    </h2>
+                    <br>
+                    <div class="badges">
+                        <!-- <a href="login.html" class="btn btn-outline1 btn-xl js-scroll-trigger">Iniciar Sesión !</a> -->
+                        <!-- <a class="badge-link" href="loginFacebook.html"><img src="img_fine/btn_fbook.png" alt=""></a>
+                        <a class="badge-link" href="loginGoogle.html"><img src="img_fine/btnGOOGLE.png" alt=""></a> -->
+                        <!-- boton basico -->
+                        <!-- <a href="#download" class="btn btn-outline btn-xl js-scroll-trigger">Registarme!</a> -->
+                        <!-- <a class="badge-link" href="#"><img src="img/google-play-badge.svg" alt=""></a> -->
+                        <!-- <a class="badge-link" href="#"><img src="img/app-store-badge.svg" alt=""></a> -->
+                    </div>
+                    <div class="col-md-8 mx-auto text-center">
+                        <table>
+                            <tr>
+                                <td>
+                                    <p style="text-align: left; color: chocolate;">Nombre del Evento: </p>
+                                </td>
+                                <td style="padding-left: 50px;">
+                                    <input class="form-control" id="nameUpdate" type="text" placeholder="Nombre del Evento">
+                                </td>
+                            </tr>
+                            <!-- <tr>
+                                <td>
+                                    <p style="text-align: left; color: chocolate;">Tipo del Evento: </p>
+                                </td>
+                                <td>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                        </div>
+                                        <select style="border-radius: 6px;" class="custom-select"
+                                            id="inputGroupSelect01">
+                                            <option selected>Choose...</option>
+                                            <option value="1">One</option>
+                                            <option value="2">Two</option>
+                                            <option value="3">Three</option>
+                                        </select>
+                                    </div>
+                                </td>
+                            </tr> -->
+                            <tr>
+                                <td>
+                                    <p style="text-align: left; color: chocolate;">Lugar del Evento: </p>
+                                </td>
+                                <td style="padding-left: 50px;">
+                                    <input class="form-control" id="placeUpdate" type="text" placeholder="Lugar">
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <br>
+                    <a href="javascript:update()" class="btn btn-outline1 btn-xl js-scroll-trigger" style="font-size: large;">Modificar!</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="download bg-primary1 text-center" id="features">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 mx-auto">
+                    <h2 class="section-heading" style="color: rgb(0, 0, 0);">
+                        Eliminar Evento!
+                    </h2>
+                    <br>
+                    <div class="badges">
+                        <!-- <a href="login.html" class="btn btn-outline1 btn-xl js-scroll-trigger">Iniciar Sesión !</a> -->
+                        <!-- <a class="badge-link" href="loginFacebook.html"><img src="img_fine/btn_fbook.png" alt=""></a>
+                            <a class="badge-link" href="loginGoogle.html"><img src="img_fine/btnGOOGLE.png" alt=""></a> -->
+                        <!-- boton basico -->
+                        <!-- <a href="#download" class="btn btn-outline btn-xl js-scroll-trigger">Registarme!</a> -->
+                        <!-- <a class="badge-link" href="#"><img src="img/google-play-badge.svg" alt=""></a> -->
+                        <!-- <a class="badge-link" href="#"><img src="img/app-store-badge.svg" alt=""></a> -->
+                    </div>
+                    <div class="col-md-8 mx-auto text-center">
+                        <table>
+                            <tr>
+                                <td>
+                                    <p style="text-align: left;color: rgb(0, 0, 0);">Nombre del Evento: </p>
+                                </td>
+                                <td style="padding-left: 50px;">
+                                    <input class="form-control" id="nameDelete" type="text" placeholder="Nombre del Evento">
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <br>
+                    <a href="javascript:deleteEvent()" class="btn btn-outline11 btn-xl js-scroll-trigger" style="font-size: large;">Eliminar!</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- <section class="cta">
+    <div class="cta-content">
+      <div class="container">
+        <h2>Trabaja.<br>con Nosotros.</h2>
+        <a href="#contact" class="btn btn-outline btn-xl js-scroll-trigger">Empezar ahora!</a>
+      </div>
+    </div>
+    <div class="overlay"></div>
+  </section> -->
+
+    <section class="download bg-primary3 text-center" id="download2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 mx-auto">
+                    <h2 class="section-heading" style="color: chocolate;">
+                        Eventos!
+                    </h2>
+                    <br>
+                    <div class="badges">
+                        <!-- <a href="login.html" class="btn btn-outline1 btn-xl js-scroll-trigger">Iniciar Sesión !</a> -->
+                        <!-- <a class="badge-link" href="loginFacebook.html"><img src="img_fine/btn_fbook.png" alt=""></a>
+                        <a class="badge-link" href="loginGoogle.html"><img src="img_fine/btnGOOGLE.png" alt=""></a> -->
+                        <!-- boton basico -->
+                        <!-- <a href="#download" class="btn btn-outline btn-xl js-scroll-trigger">Registarme!</a> -->
+                        <!-- <a class="badge-link" href="#"><img src="img/google-play-badge.svg" alt=""></a> -->
+                        <!-- <a class="badge-link" href="#"><img src="img/app-store-badge.svg" alt=""></a> -->
+                    </div>
+                    <div class="col-md-6 mx-auto text-center">
+                        <table class="table table-hover" id="tableList" border="1">
+                            <thead>
+                                <tr>
+                                    <th> NOMBRE </th>
+                                    <th> LUGAR </th>
+                                    <th> ACCION </th>
+                                </tr>
+                            </thead>
+                            <tbody id="listaEvento">
+                            </tbody>
+                        </table>
+                    </div>
+                    <br>
+                    <!-- <a href="login.html" class="btn btn-outline11 btn-xl js-scroll-trigger" style="font-size: large;">MOdificar !</a> -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact bg-primary" id="contact">
+        <div class="container">
+            <h2>Síguenos
+                <i class="fas fa-heart"></i> en nuestras Redes!</h2>
+            <ul class="list-inline list-social">
+                <li class="list-inline-item social-twitter">
+                    <a href="#">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                </li>
+                <li class="list-inline-item social-facebook">
+                    <a href="#">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                </li>
+                <li class="list-inline-item social-google-plus">
+                    <a href="#">
+                        <i class="fab fa-google-plus-g"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; Your Website 2019. All Rights Reserved.</p>
+            <ul class="list-inline">
+                <li class="list-inline-item">
+                    <a href="#">Privacy</a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="#">Terms</a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="#">FAQ</a>
+                </li>
+            </ul>
+        </div>
+    </footer>
+
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="js/new-age.min.js"></script>
+    <script>
+        function limpiar() {
+            $("#nomEven").val("");
+            $("#lugar").val("");
+        }
+    </script>
+
+</body>
+
+</html>

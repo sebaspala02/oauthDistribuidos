@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"Ingenieria.tiquetes"}],"uuid":"e782284c078e4b918e01d9f303b283ce"}

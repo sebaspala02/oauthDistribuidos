@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"Ingenieria.users"}],"uuid":"c241dcd3ec2b4c48b504d60ab0b78a06"}
