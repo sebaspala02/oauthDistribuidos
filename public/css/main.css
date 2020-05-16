@@ -1,7 +1,3 @@
-
-
-
-
 /*//////////////////////////////////////////////////////////////////
 [ FONT ]*/
 
@@ -183,7 +179,6 @@ iframe {
 
 
 .wrap-login100 {
-  width: 680px;
   background: #fff;
   border-radius: 10px;
   position: relative;
@@ -200,10 +195,8 @@ iframe {
 .login100-form-title {
   width: 100%;
   display: block;
-  font-family: Montserrat-Medium;
-  font-size: 39px;
+  font-size: 24px;
   color: #555555;
-  line-height: 1.2;
   text-align: center;
 }
 
@@ -337,11 +330,11 @@ iframe {
   border-radius: 10px;
   top: 0;
   left: 0;
-  background: #a64bf4;
-  background: -webkit-linear-gradient(45deg, #00dbde, #fc00ff);
-  background: -o-linear-gradient(45deg, #00dbde, #fc00ff);
-  background: -moz-linear-gradient(45deg, #00dbde, #fc00ff);
-  background: linear-gradient(45deg, #00dbde, #fc00ff);
+  background: rgb(230, 229, 229);
+  background: -webkit-linear-gradient(45deg, rgb(230, 229, 229), rgb(230, 229, 229));
+  background: -o-linear-gradient(45deg, rgb(230, 229, 229), rgb(230, 229, 229));
+  background: -moz-linear-gradient(45deg, rgb(230, 229, 229), rgb(230, 229, 229));
+  background: linear-gradient(45deg, rgb(230, 229, 229), rgb(230, 229, 229));
   opacity: 0;
   -webkit-transition: all 0.4s;
   -o-transition: all 0.4s;
@@ -508,11 +501,11 @@ iframe {
   border-radius: 10px;
   top: 0;
   left: 0;
-  background: #a64bf4;
-  background: -webkit-linear-gradient(45deg, #00dbde, #fc00ff);
-  background: -o-linear-gradient(45deg, #00dbde, #fc00ff);
-  background: -moz-linear-gradient(45deg, #00dbde, #fc00ff);
-  background: linear-gradient(45deg, #00dbde, #fc00ff);
+  background: rgb(230, 229, 229);
+  background: -webkit-linear-gradient(45deg, rgb(230, 229, 229), rgb(230, 229, 229));
+  background: -o-linear-gradient(45deg, rgb(230, 229, 229), rgb(230, 229, 229));
+  background: -moz-linear-gradient(45deg, rgb(230, 229, 229), rgb(230, 229, 229));
+  background: linear-gradient(45deg, rgb(230, 229, 229), rgb(230, 229, 229));
   opacity: 0;
   -webkit-transition: all 0.4s;
   -o-transition: all 0.4s;

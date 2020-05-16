@@ -1,1 +1,0 @@
-{"options":{},"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"Ingenieria.productos"}],"uuid":"517df982ff764cf296f9358f0cc1c5c5"}
