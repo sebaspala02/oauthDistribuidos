@@ -39,16 +39,9 @@ router.get('/login', (req, res, next) => {
     res.render('login.ejs');
 });
 
-router.get('/loginFacebook', (req, res, next) => {
-    res.render('loginFacebook.ejs');
-});
 
 router.get('/indexLogeado', (req, res, next) => {
     res.render('indexLogeado.ejs');
-});
-
-router.get('/signup', (req, res, next) => {
-    res.render('signup');
 });
 
 const authCheck = (req, res, next) => {
@@ -73,32 +66,5 @@ router.get('/indexLogeado#carousel', (req, res, next) => {
     res.render('indexLogeado#carousel.ejs');
 });
 
-router.get('/votar', (req, res, next) => {
-    res.render('votar.ejs');
-});
-
-router.get('/selectCiudad', (req, res, next) => {
-    res.render('selectCiudad.ejs');
-});
-
-router.get('/accionVotar', (req, res, next) => {
-    res.render('accionVotar.ejs');
-});
-
-router.get('/accionVOTADA', (req, res, next) => {
-    res.render('accionVOTADA.ejs');
-});
-
-router.get('/publicarFoto', (req, res, next) => {
-    res.render('publicarFoto.ejs');
-});
-
-router.get('/CRUD_evento', (req, res, next) => {
-    res.render('CRUD_evento.ejs');
-});
-
-router.get('/CRUD_restaurante', (req, res, next) => {
-    res.render('CRUD_restaurante.ejs');
-});
 
 module.exports = router;
