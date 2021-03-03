@@ -50,7 +50,7 @@
         "passport-google-oauth20": "^2.0.0",
         "passport-local": "^1.0.0",
         "path": "^0.12.7",
-        "pug": "^2.0.4",
+        "pug": "^3.0.1",
         "request": "^2.88.0",
         "require.js": "^1.0.0",
         "simple-line-icons": "2.4.1",
